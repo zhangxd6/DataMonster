@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>SignalR</title>
+	<meta charset="utf-8" />
+    <style>
+        #shape {
+            width: 100px;
+            height: 100px;
+            background-color: #FF0000;
+        }
+    </style>
+</head>
+<body>
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+    <script src="Scripts/jquery.signalR-2.1.2.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script>
+        $(function () {
+            var moveShapeHub = $.connection.tDS;
+                   //$shape = $("#shape"),
+                   //shapeModel = {
+                   //    left: 100,
+                   //    top: 100
+                   //};
+            moveShapeHub.client.updateShape = function (model) {
+                shapeModel = model;
+                $shape.css({ left: model.left, top: model.top });
+            };
+
+            $('#start').click(function () {
+                moveShapeHub.server.start();
+            });
+
+            $('#end').click(function () {
+                moveShapeHub.server.stop();
+            });
+
+            moveShapeHub.client.getData = function (data) {
+                $('#info').append(data);
+            }
+            $.connection.hub.start().done(function () {
+                //$shape.draggable({
+                //    drag: function () {
+                //        shapeModel = $shape.offset();
+                //        moveShapeHub.server.updateModel(shapeModel);
+                //    }
+                //});
+               // $('#info').html(moveShapeHub.client.getData());
+            });
+        });
+    </script>
+
+    <div id="shape" />
+    <div id="info"/>
+    <button id="start">Start</button>
+    <button id="end">Stop</button>
+</body>
+</html>
