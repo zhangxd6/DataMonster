@@ -4,11 +4,11 @@
     <title>SignalR</title>
 	<meta charset="utf-8" />
     <style>
-        #shape {
+        /*#shape {
             width: 100px;
             height: 100px;
             background-color: #FF0000;
-        }
+        }*/
     </style>
 </head>
 <body>
@@ -16,6 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
     <script src="Scripts/jquery.signalR-2.1.2.js"></script>
     <script src="/signalr/hubs"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
     <script>
         $(function () {
             var moveShapeHub = $.connection.tDS;
@@ -24,10 +25,7 @@
                    //    left: 100,
                    //    top: 100
                    //};
-            moveShapeHub.client.updateShape = function (model) {
-                shapeModel = model;
-                $shape.css({ left: model.left, top: model.top });
-            };
+
 
             $('#start').click(function () {
                 moveShapeHub.server.start();
@@ -38,7 +36,38 @@
             });
 
             moveShapeHub.client.getData = function (data) {
-                $('#info').append(data);
+                //$('#info').append(data);
+               // d3_plot(data);
+                $('#container').highcharts({
+                    title: {
+                        text: 'Monthly Average Temperature',
+                        x: -20 //center
+                    },
+                    subtitle: {
+                        text: 'Source: WorldClimate.com',
+                        x: -20
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Temperature (°C)'
+                        },
+                        plotLines: [{
+                            value: 0,
+                            width: 1,
+                            color: '#808080'
+                        }]
+                    }
+                    ,
+                    series: [{
+                        name: 'Data',
+                        data: data
+                    }],
+                    plotOptions: {
+                        line: {
+                            animation: false
+                        }
+                    }
+                });
             }
             $.connection.hub.start().done(function () {
                 //$shape.draggable({
@@ -52,9 +81,10 @@
         });
     </script>
 
-    <div id="shape" />
+    <!--<div id="shape" />-->
     <div id="info"/>
     <button id="start">Start</button>
     <button id="end">Stop</button>
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 </body>
 </html>

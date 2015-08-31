@@ -5,7 +5,7 @@ using System.Web;
 using Microsoft.AspNet.SignalR;
 using System.Threading.Tasks;
 using System.Threading;
-using NationalInstruments.NI4882;
+//using NationalInstruments.NI4882;
 using System.Diagnostics;
 
 namespace Server
@@ -14,10 +14,11 @@ namespace Server
     {
        static CancellationTokenSource cts;
        static CancellationToken ct;
-        Device device;
+        //Device device;
+        int t = 0;
         public void Start()
         {
-            device = new Device(0, new Address(12, 96));
+            //device = new Device(0, new Address(12, 96));
 
             cts = new CancellationTokenSource();
             ct = cts.Token;
@@ -27,10 +28,12 @@ namespace Server
                 {
                     if (!ct.IsCancellationRequested)
                     {
-                        device.Write("Curv?");
-                        string data = device.ReadString();
+                        //device.Write("Curv?");
+                        //string data = device.ReadString();
+                       IEnumerable<double> data = Enumerable.Range(0, 500).Select((i) => 100 * Math.Sin(0.1 * i + (t + 54)));
                         Clients.All.getData(data);
-                        Task.Delay(500);
+                        Thread.Sleep(1000);
+                        t++;
                     }
                     else
                     {
