@@ -3,88 +3,62 @@
 <head>
     <title>SignalR</title>
 	<meta charset="utf-8" />
-    <style>
-        /*#shape {
-            width: 100px;
-            height: 100px;
-            background-color: #FF0000;
-        }*/
-    </style>
-</head>
-<body>
+    <link  async rel="stylesheet"  type="text/css" href="/content/bootstrap.css"/>
+    <link async rel="stylesheet" type="text/css" href="Content/style.css"/>
     <script src="Scripts/jquery-1.10.2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
     <script src="Scripts/jquery.signalR-2.1.2.js"></script>
     <script src="/signalr/hubs"></script>
+    <script src="Scripts/bootstrap.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
-    <script>
-        $(function () {
-            var moveShapeHub = $.connection.tDS;
-                   //$shape = $("#shape"),
-                   //shapeModel = {
-                   //    left: 100,
-                   //    top: 100
-                   //};
+</head>
+<body>
+   <div class="container">
+       <div id="main-tabs">
+           <ul class=" nav nav-tabs" role="tablist">
+               <li role="presentation" class="active">
+                   <a href="#tdsscope" aria-controls="tdsscope" role="tab" data-toggle="tab">
+                       Scope
+                   </a>
+               </li>
+               <li role="presentation">
+                   <a href="#interactive" aria-controls="interactive" role="tab" data-toggle="tab">
+                       Interactive
+                   </a>
+               </li>
+           </ul>
 
+           <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active fade in" id="tdsscope">
+                    <div id="container" class="scope-trace"></div>
+                    <button class="btn btn-default" id="start">Start</button>
+                    <button class="btn btn-default" id="end">Stop</button>
+                </div>
+               <div role="tabpanel" class="tab-pane fade" id="interactive">
+                   <!-- interactive panel -->
+                   <div>
+                       <input type="text" class="form-control" title="Primary port" />
+                       <input type="text"  class="form-control" title="Second port" />
+                   </div>
+                   <div class="input-group">
+                       <input type="text"  class="form-control" placeholder="enter gpib command" />
+                   </div>
+                  <div class="btn-group" role="group">
+                    
+                          <button type="button"  class="btn btn-default">Query</button>
+ 
+                          <button type="button" class="btn btn-default">Write</button>
 
-            $('#start').click(function () {
-                moveShapeHub.server.start();
-            });
+                          <button type="button" class="btn btn-default">Read</button>
 
-            $('#end').click(function () {
-                moveShapeHub.server.stop();
-            });
+                   </div>
+                   <div>
 
-            moveShapeHub.client.getData = function (data) {
-                //$('#info').append(data);
-               // d3_plot(data);
-                $('#container').highcharts({
-                    title: {
-                        text: 'Monthly Average Temperature',
-                        x: -20 //center
-                    },
-                    subtitle: {
-                        text: 'Source: WorldClimate.com',
-                        x: -20
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'Temperature (°C)'
-                        },
-                        plotLines: [{
-                            value: 0,
-                            width: 1,
-                            color: '#808080'
-                        }]
-                    }
-                    ,
-                    series: [{
-                        name: 'Data',
-                        data: data
-                    }],
-                    plotOptions: {
-                        line: {
-                            animation: false
-                        }
-                    }
-                });
-            }
-            $.connection.hub.start().done(function () {
-                //$shape.draggable({
-                //    drag: function () {
-                //        shapeModel = $shape.offset();
-                //        moveShapeHub.server.updateModel(shapeModel);
-                //    }
-                //});
-               // $('#info').html(moveShapeHub.client.getData());
-            });
-        });
-    </script>
-
-    <!--<div id="shape" />-->
-    <div id="info"/>
-    <button id="start">Start</button>
-    <button id="end">Stop</button>
-    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                   </div>
+  
+               </div>
+           </div>
+       </div>
+   </div>
+    <script src="Scripts/app.js"></script>
 </body>
 </html>
