@@ -11,7 +11,7 @@
 
 #define GPIB0		0	// Board handle
 #define BDINDEX	0
-#define PRIMARY_ADDRESS 8
+#define PRIMARY_ADDRESS 12
 #define SECONDARY_ADDRESS 0
 #define TIMEOUT	T10s
 #define EOTMODE	1
