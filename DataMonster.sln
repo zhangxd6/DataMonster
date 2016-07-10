@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "monsterC", "monsterC\monste
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{2F79977A-E61B-4DEC-9414-4AAFCAF28ED3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfServer", "SelfServer\SelfServer.csproj", "{D24DB87D-425B-4F74-B7BD-AFBD0632E6CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,18 @@ Global
 		{2F79977A-E61B-4DEC-9414-4AAFCAF28ED3}.Release|x64.Build.0 = Release|Any CPU
 		{2F79977A-E61B-4DEC-9414-4AAFCAF28ED3}.Release|x86.ActiveCfg = Release|Any CPU
 		{2F79977A-E61B-4DEC-9414-4AAFCAF28ED3}.Release|x86.Build.0 = Release|Any CPU
+		{D24DB87D-425B-4F74-B7BD-AFBD0632E6CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D24DB87D-425B-4F74-B7BD-AFBD0632E6CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D24DB87D-425B-4F74-B7BD-AFBD0632E6CB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D24DB87D-425B-4F74-B7BD-AFBD0632E6CB}.Debug|x64.Build.0 = Debug|Any CPU
+		{D24DB87D-425B-4F74-B7BD-AFBD0632E6CB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D24DB87D-425B-4F74-B7BD-AFBD0632E6CB}.Debug|x86.Build.0 = Debug|Any CPU
+		{D24DB87D-425B-4F74-B7BD-AFBD0632E6CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D24DB87D-425B-4F74-B7BD-AFBD0632E6CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D24DB87D-425B-4F74-B7BD-AFBD0632E6CB}.Release|x64.ActiveCfg = Release|Any CPU
+		{D24DB87D-425B-4F74-B7BD-AFBD0632E6CB}.Release|x64.Build.0 = Release|Any CPU
+		{D24DB87D-425B-4F74-B7BD-AFBD0632E6CB}.Release|x86.ActiveCfg = Release|Any CPU
+		{D24DB87D-425B-4F74-B7BD-AFBD0632E6CB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
