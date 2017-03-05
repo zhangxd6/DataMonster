@@ -24,12 +24,12 @@ namespace Server
         {
             logger.Trace("Starting collecting the waveform");
 
-            device = new Device(0, new Address(12, 96));
+            device = new Device(0, new Address(13, 96));
             device.Write("*IDN?");
             string data = device.ReadString();
             logger.Trace(String.Format("the scope infomation:{0}",data));
 
-            string channel = "CH1";
+            string channel = "CH2";
             device.Reset();
             device.Write(string.Format("DAT:SOU {0}",channel));
             device.Write("DAT:ENC RIB;WID 1");

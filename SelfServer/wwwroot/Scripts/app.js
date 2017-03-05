@@ -27,7 +27,7 @@
         // d3_plot(data);
         $('#orginalchart').highcharts({
             title: {
-                text: 'Monthly Average Temperature',
+              text: 'raw'+ data.MetaData.CurveId,
                 x: -20 //center
             },
             subtitle: {
@@ -36,7 +36,7 @@
             },
             yAxis: {
                 title: {
-                    text: 'Temperature (°C)'
+                  text: 'Voltage(V)'
                 },
                 plotLines: [{
                     value: 0,
