@@ -1,11 +1,7 @@
 ﻿$(function () {
     $('#main-tab a:first').tab('show');
     var moveShapeHub = $.connection.tDS;
-    //$shape = $("#shape"),
-    //shapeModel = {
-    //    left: 100,
-    //    top: 100
-    //};
+    
 
 
     $('#start').click(function () {
@@ -31,12 +27,12 @@
                 x: -20 //center
             },
             subtitle: {
-                text: 'Source: WorldClimate.com',
+                text: 'Raw',
                 x: -20
             },
             yAxis: {
                 title: {
-                  text: 'Voltage(V)'
+                  text: 'Point'
                 },
                 plotLines: [{
                     value: 0,
