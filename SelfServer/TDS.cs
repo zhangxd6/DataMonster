@@ -17,6 +17,26 @@ namespace Server
 {
   public class TDS : ScopeHubBase
   {
+    public override void Start()
+    {
+      base.Start();
+      this.ConfigureLogger();
+      this.InitScope();
+      Task.Factory.StartNew(() =>
+      {
+        while (true)
+        {
+          if (ct.IsCancellationRequested)
+          {
+            this.AggreateCurve();
+          }
+          else
+          {
+            this.GetScopeCurve();
+          }        
+        }
+      }, ct);
+    }
 
   }
   //public class TDS : Hub,IScopeHub

@@ -16,14 +16,14 @@ namespace SelfServer
 {
   public class ScopeHubBase : Hub, IScopeHub
   {
-    static CancellationTokenSource cts;
-    static CancellationToken ct;
+    protected  static CancellationTokenSource cts;
+    protected static CancellationToken ct;
 
     Logger logger = LogManager.GetCurrentClassLogger();
-    Logger raw = LogManager.GetLogger("raw");
-    Logger translated = LogManager.GetLogger("translated");
-    int curveNumber = 0;
-    List<CurvePoint> sumDData = new List<CurvePoint>();
+     protected Logger raw = LogManager.GetLogger("raw");
+     protected Logger translated = LogManager.GetLogger("translated");
+    protected int curveNumber = 0;
+    protected List<CurvePoint> sumDData = new List<CurvePoint>();
     protected Device device;
     protected CurveMetaData meta = new CurveMetaData();
     public virtual void Start()
