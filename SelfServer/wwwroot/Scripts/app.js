@@ -1,8 +1,18 @@
 ﻿$(function () {
     $('#main-tab a:first').tab('show');
     var moveShapeHub = $.connection.tDS;
+    var stepHub = $.connection.stepScope;
     
-
+    $('#stepstart').click(function () {
+      var init = $('#initialVotage').val();
+      var end = $('#finalVoltage').val();
+      var step = $('#stepVoltage').val();
+      var numberCurve = $('#numberCurve').val();
+      stepHub.server.start(init,end,step,numberCurve);
+    });
+    $('#stepend').click(function () {
+      stepHub.server.stop();
+    });
 
     $('#start').click(function () {
         moveShapeHub.server.start();
