@@ -88,6 +88,66 @@
             }
         })
     }
+    stepHub.client.getData = function (data) {
+      //$('#info').append(data);
+      // d3_plot(data);
+      $('#tabpanelorginalchart').highcharts({
+        title: {
+          text: 'raw' + data.MetaData.CurveId,
+          x: -20 //center
+        },
+        subtitle: {
+          text: 'Raw',
+          x: -20
+        },
+        yAxis: {
+          title: {
+            text: 'Point'
+          },
+          plotLines: [{
+            value: 0,
+            width: 1,
+            color: '#808080'
+          }]
+        }
+          ,
+        series: [{
+          name: 'Data',
+          data: data.Orginal
+        }],
+        plotOptions: {
+          line: {
+            animation: false
+          }
+        }
+      });
+      $('#tabpanelcurveChart').highcharts({
+        title: {
+          text: data.MetaData.CurveId,
+          x: -20 //center
+        },
+        yAxis: {
+          title: {
+            text: 'Voltage(V)'
+          },
+          plotLines: [{
+            value: 0,
+            width: 1,
+            color: '#808080'
+          }]
+        }
+          ,
+        series: [{
+          name: "SCOPE",
+          data: data.Points.map(mapping)
+        }],
+        plotOptions: {
+          line: {
+            animation: false
+          }
+        }
+      })
+    }
     $.connection.hub.start().done(function () {
         //$shape.draggable({
         //    drag: function () {

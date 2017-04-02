@@ -122,6 +122,9 @@
     <Content Include="wwwroot\Content\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="wwwroot\Scripts\highcharts.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="wwwroot\Scripts\jquery.signalR-2.1.2.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
