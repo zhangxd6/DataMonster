@@ -29,14 +29,14 @@ namespace SelfServer
             
         }
 
-        public void AccquireImage()
+        public void AccquireImage(string pathsuffix)
         {
             while (true)
             {
                 camera.AcquireSingleImage(ref frame, 5000); //timout at 5secons
                 if (frame.ReceiveStatus == VmbFrameStatusType.VmbFrameStatusComplete)
                 {
-                    var fileName = "filename.bmp";
+                    var fileName = $"camera_{pathsuffix}.bmp";
                     Bitmap bitmap = null;
                     bitmap = new Bitmap((int)frame.Width, (int)frame.Height, PixelFormat.Format24bppRgb);
                     frame.Fill(ref bitmap);

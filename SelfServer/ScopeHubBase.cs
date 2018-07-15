@@ -32,7 +32,7 @@ namespace SelfServer
 
     }
 
-    public void Stop()
+    public virtual void Stop()
     {
       cts?.Cancel();
     }
