@@ -18,8 +18,7 @@ namespace SelfServer
   {
     protected  static CancellationTokenSource cts;
     protected static CancellationToken ct;
-
-    Logger logger = LogManager.GetCurrentClassLogger();
+        private Logger logger = LogManager.GetCurrentClassLogger();
      protected Logger raw = LogManager.GetLogger("raw");
      protected Logger translated = LogManager.GetLogger("translated");
     protected int curveNumber = 0;
