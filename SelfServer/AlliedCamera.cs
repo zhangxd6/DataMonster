@@ -1,4 +1,5 @@
-﻿using AVT.VmbAPINET;
+﻿using AForge.Imaging;
+using AVT.VmbAPINET;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -36,10 +37,19 @@ namespace SelfServer
                 camera.AcquireSingleImage(ref frame, 5000); //timout at 5secons
                 if (frame.ReceiveStatus == VmbFrameStatusType.VmbFrameStatusComplete)
                 {
-                    var fileName = $"camera_{pathsuffix}.bmp";
+                    System.IO.Directory.CreateDirectory($"camera_{pathsuffix}");
+                    var fileName = System.IO.Path.Combine($"camera_{pathsuffix}", "cameraimage.bmp");
                     Bitmap bitmap = null;
                     bitmap = new Bitmap((int)frame.Width, (int)frame.Height, PixelFormat.Format24bppRgb);
                     frame.Fill(ref bitmap);
+                    ImageStatistics rgbStatistics = new ImageStatistics(bitmap);
+                    int[] redValues = rgbStatistics.Red.Values;
+                    int[] greenValues = rgbStatistics.Green.Values;
+                    int[] blueValues = rgbStatistics.Blue.Values;
+                    System.IO.File.WriteAllText(System.IO.Path.Combine($"camera_{pathsuffix}", "red.txt"), string.Join(",", redValues));
+                    System.IO.File.WriteAllText(System.IO.Path.Combine($"camera_{pathsuffix}", "green.txt"), string.Join(",", greenValues));
+                    System.IO.File.WriteAllText(System.IO.Path.Combine($"camera_{pathsuffix}", "blue.txt"), string.Join(",", blueValues));
+
                     bitmap.Save(fileName, ImageFormat.Bmp);
                     Console.WriteLine("Frame status complete");
                     break;
