@@ -75,10 +75,10 @@ namespace SelfServer
 
         public void StopCamera()
         {
-            FeatureCollection features = camera.Features;
-            Feature feature = features["AcquisitionStop"];
-            feature.RunCommand();
-            camera.EndCapture();
+            //FeatureCollection features = camera.Features;
+            //Feature feature = features["AcquisitionStop"];
+            //feature.RunCommand();
+            //camera.EndCapture();
             camera.FlushQueue();
             camera.RevokeAllFrames();
             camera.Close();

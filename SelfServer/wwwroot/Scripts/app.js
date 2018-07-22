@@ -23,10 +23,14 @@
         moveShapeHub.server.stop();
     });
     $('#startCamera').click(() => {
-        cameraHub.server.start();
+        cameraHub.server.start().done(() => {
+            alert('Camera Started')
+        });
     });
     $('#endCamera').click(() => {
-        cameraHub.server.stop();
+        cameraHub.server.stop().done(() => {
+            alert('Camera Stoped ')
+        })
     });
     $('#takePicture').click(() => {
         cameraHub.server.takePicture().done(response => {
