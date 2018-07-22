@@ -8,9 +8,19 @@ namespace SelfServer
 {
     public class SyncAlliedCamera
     {
+        public static SyncAlliedCamera Instance { get
+            {
+                return _instance;
+            }
+        }
         private Camera camera = null;
         private long payloadSize;
         private Frame frame;
+        private static SyncAlliedCamera _instance = new SyncAlliedCamera();
+        private SyncAlliedCamera()
+        {
+
+        }
 
         public void Start()
         {
@@ -30,15 +40,18 @@ namespace SelfServer
             
         }
 
-        public void AccquireImage(string pathsuffix)
+        public string  AccquireImage(string pathsuffix)
         {
+            var datetime = DateTime.Now;
+            var path = $"{pathsuffix}/{datetime.Month.ToString("D2")}_{datetime.Day.ToString("D2")}_{datetime.Year.ToString("D4")}__{datetime.Hour.ToString("D2")}_{datetime.Minute.ToString("D2")}_{datetime.Second.ToString("D2")}";
+
             while (true)
             {
                 camera.AcquireSingleImage(ref frame, 5000); //timout at 5secons
                 if (frame.ReceiveStatus == VmbFrameStatusType.VmbFrameStatusComplete)
                 {
-                    System.IO.Directory.CreateDirectory($"camera_{pathsuffix}");
-                    var fileName = System.IO.Path.Combine($"camera_{pathsuffix}", "cameraimage.bmp");
+                    System.IO.Directory.CreateDirectory(path);
+                    var fileName = System.IO.Path.Combine(path, "cameraimage.bmp");
                     Bitmap bitmap = null;
                     bitmap = new Bitmap((int)frame.Width, (int)frame.Height, PixelFormat.Format24bppRgb);
                     frame.Fill(ref bitmap);
@@ -46,13 +59,14 @@ namespace SelfServer
                     int[] redValues = rgbStatistics.Red.Values;
                     int[] greenValues = rgbStatistics.Green.Values;
                     int[] blueValues = rgbStatistics.Blue.Values;
-                    System.IO.File.WriteAllText(System.IO.Path.Combine($"camera_{pathsuffix}", "red.txt"), string.Join(",", redValues));
-                    System.IO.File.WriteAllText(System.IO.Path.Combine($"camera_{pathsuffix}", "green.txt"), string.Join(",", greenValues));
-                    System.IO.File.WriteAllText(System.IO.Path.Combine($"camera_{pathsuffix}", "blue.txt"), string.Join(",", blueValues));
+                    System.IO.File.WriteAllText(System.IO.Path.Combine(path, "red.txt"), string.Join(",", redValues));
+                    System.IO.File.WriteAllText(System.IO.Path.Combine(path, "green.txt"), string.Join(",", greenValues));
+                    System.IO.File.WriteAllText(System.IO.Path.Combine(path, "blue.txt"), string.Join(",", blueValues));
 
                     bitmap.Save(fileName, ImageFormat.Bmp);
                     Console.WriteLine("Frame status complete");
-                    break;
+                    return path;
+                    
                 }
                 //wait 100 milliseconds and try again
                 System.Threading.Thread.Sleep(100);

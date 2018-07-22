@@ -2,7 +2,8 @@
     $('#main-tab a:first').tab('show');
     var moveShapeHub = $.connection.tDS;
     var stepHub = $.connection.stepScope;
-    
+    var cameraHub = $.connection.alliedCameraScope;
+
     $('#stepstart').click(function () {
       var init = $('#initialVotage').val();
       var end = $('#finalVoltage').val();
@@ -21,7 +22,45 @@
     $('#end').click(function () {
         moveShapeHub.server.stop();
     });
-
+    $('#startCamera').click(() => {
+        cameraHub.server.start();
+    });
+    $('#endCamera').click(() => {
+        cameraHub.server.stop();
+    });
+    $('#takePicture').click(() => {
+        cameraHub.server.takePicture().done(response => {
+            $('#snapshot').attr('src', response.ImageSrc);
+            $('#hist').highcharts({
+                title: { text: "Histograms" },
+                subtitle: { text: "raw" },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle'
+                },
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'red',
+                        data: response.Red
+                    }, {
+                        name: 'blue',
+                        data: response.Blue
+                    }, {
+                        name: 'green',
+                        data: response.Green
+                    }
+                ]
+            })
+        });
+    })
     function mapping(point) {
         var arr = [];
         arr.push(point.X);

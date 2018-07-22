@@ -2,9 +2,9 @@
 <html>
 <head>
     <title>SignalR</title>
-	<meta charset="utf-8" />
-    <link  async rel="stylesheet"  type="text/css" href="/content/bootstrap.css"/>
-    <link async rel="stylesheet" type="text/css" href="Content/style.css"/>
+    <meta charset="utf-8" />
+    <link async rel="stylesheet" type="text/css" href="/content/bootstrap.css" />
+    <link async rel="stylesheet" type="text/css" href="Content/style.css" />
     <script src="Scripts/jquery-1.10.2.min.js"></script>
     <script src="Scripts/jquery.signalR-2.1.2.js"></script>
     <script src="/signalr/hubs"></script>
@@ -12,86 +12,99 @@
     <script src="http://code.highcharts.com/highcharts.js"></script>
 </head>
 <body>
-   <div class="container">
-       <div id="main-tabs">
-           <ul class=" nav nav-tabs" role="tablist">
-               <li role="presentation" class="active">
-                   <a href="#tdsscope" aria-controls="tdsscope" role="tab" data-toggle="tab">
-                       Scope
-                   </a>
-               </li>
-             <li role="presentation">
-               <a href="#tdsstep" aria-controls="tdsscope" role="tab" data-toggle="tab">
-                 Step
-               </a>
-             </li>
-               <li role="presentation">
-                   <a href="#interactive" aria-controls="interactive" role="tab" data-toggle="tab">
-                       Interactive
-                   </a>
-               </li>
-           </ul>
+    <div class="container">
+        <div id="main-tabs">
+            <ul class=" nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#tdsscope" aria-controls="tdsscope" role="tab" data-toggle="tab">
+                        Scope
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#tdsstep" aria-controls="tdsscope" role="tab" data-toggle="tab">
+                        Step
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#interactive" aria-controls="interactive" role="tab" data-toggle="tab">
+                        Interactive
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#camera" aria-controls="interactive" role="tab" data-toggle="tab">
+                        Camera
+                    </a>
+                </li>
+            </ul>
 
-           <div class="tab-content">
+            <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active fade in" id="tdsscope">
                     <div id="orginalchart" class="scope-trace"></div>
                     <div id="curveChart" class="scope-trace"></div>
                     <button class="btn btn-default" id="start">Start</button>
                     <button class="btn btn-default" id="end">Stop</button>
                 </div>
-             <div role="tabpanel" class="tab-pane active fade in" id="tdsstep">
-               <div id="tabpanelorginalchart" class="scope-trace"></div>
-               <div id="tabpanelcurveChart" class="scope-trace"></div>
-                <div>
-                  <form class="form-inline">
-                    <div class="form-group">
-                      <label for="initialVotage">initialVotage</label>
-                      <input type="text" class="form-control" id="initialVotage" placeholder="0">
+                <div role="tabpanel" class="tab-pane active fade in" id="tdsstep">
+                    <div id="tabpanelorginalchart" class="scope-trace"></div>
+                    <div id="tabpanelcurveChart" class="scope-trace"></div>
+                    <div>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label for="initialVotage">initialVotage</label>
+                                <input type="text" class="form-control" id="initialVotage" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="finalVoltage">finalVoltage</label>
+                                <input type="text" class="form-control" id="finalVoltage" placeholder="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="stepVoltage">stepVoltage</label>
+                                <input type="text" class="form-control" id="stepVoltage" placeholder="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label for="numberCurve">numberCurve</label>
+                                <input type="text" class="form-control" id="numberCurve" placeholder="10">
+                            </div>
+                        </form>
+                        <button class="btn btn-default" id="stepstart">Start</button>
+                        <button class="btn btn-default" id="stepend">Stop</button>
+
                     </div>
-                    <div class="form-group">
-                      <label for="finalVoltage">finalVoltage</label>
-                      <input type="text" class="form-control" id="finalVoltage" placeholder="10">
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="interactive">
+                    <!-- interactive panel -->
+                    <div>
+                        <input type="text" class="form-control" title="Primary port" />
+                        <input type="text" class="form-control" title="Second port" />
                     </div>
-                    <div class="form-group">
-                      <label for="stepVoltage">stepVoltage</label>
-                      <input type="text" class="form-control" id="stepVoltage" placeholder="0.1">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="enter gpib command" />
                     </div>
-                    <div class="form-group">
-                      <label for="numberCurve">numberCurve</label>
-                      <input type="text" class="form-control" id="numberCurve" placeholder="10">
+                    <div class="btn-group" role="group">
+
+                        <button type="button" class="btn btn-default">Query</button>
+
+                        <button type="button" class="btn btn-default">Write</button>
+
+                        <button type="button" class="btn btn-default">Read</button>
+
                     </div>
-                  </form>
-                  <button class="btn btn-default" id="stepstart">Start</button>
-                  <button class="btn btn-default" id="stepend">Stop</button>
+                    <div>
+
+                    </div>
 
                 </div>
-             </div>
-               <div role="tabpanel" class="tab-pane fade" id="interactive">
-                   <!-- interactive panel -->
-                   <div>
-                       <input type="text" class="form-control" title="Primary port" />
-                       <input type="text"  class="form-control" title="Second port" />
-                   </div>
-                   <div class="input-group">
-                       <input type="text"  class="form-control" placeholder="enter gpib command" />
-                   </div>
-                  <div class="btn-group" role="group">
-                    
-                          <button type="button"  class="btn btn-default">Query</button>
- 
-                          <button type="button" class="btn btn-default">Write</button>
 
-                          <button type="button" class="btn btn-default">Read</button>
-
-                   </div>
-                   <div>
-
-                   </div>
-  
-               </div>
-           </div>
-       </div>
-   </div>
+                <div role="tabpanel" class="tab-pane active fade in" id="camera">
+                    <button class="btn btn-default" id="startCamera">Start</button>
+                    <button class="btn btn-default" id="endCamera">Stop</button>
+                    <button class="btn btn-default" id="takePicture">TakePicture</button>
+                    <img id="snapshot"  style="width:500px"/>
+                    <div id="hist"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="Scripts/app.js"></script>
 </body>
 </html>
