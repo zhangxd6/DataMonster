@@ -113,6 +113,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScopeHubBase.cs" />
+    <Compile Include="SRSDG535.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="StepScope.cs" />
     <Compile Include="TDS.cs" />
