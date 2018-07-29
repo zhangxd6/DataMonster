@@ -7,6 +7,7 @@ using NLog.Targets;
 using Server;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -111,7 +112,7 @@ namespace SelfServer
             curveNumber = 0;
         }
 
-        protected void GetScopeCurve()
+        protected void GetScopeCurve(string pathprefix)
         {
             try
             {
@@ -153,6 +154,8 @@ namespace SelfServer
                 raw.Trace(JsonConvert.SerializeObject(curvedata.Orginal));
                 translated.Debug(JsonConvert.SerializeObject(curvedata.Points));
                 Clients.All.getData(curvedata);
+                if (!string.IsNullOrEmpty(pathprefix))
+                    File.WriteAllText(System.IO.Path.Combine(pathprefix, $"raw_{curveNumber}"), JsonConvert.SerializeObject(curvedata.Orginal));
                 //curveNumber++;
                 Interlocked.Increment(ref curveNumber);
             }
@@ -168,7 +171,7 @@ namespace SelfServer
             }
         }
 
-        protected void AggreateCurve()
+        protected void AggreateCurve(string pathprefix)
         {
             logger.Trace(string.Format("{0} waveforms are acquired", curveNumber));
             translated.Debug(string.Format("{0} waveforms are acquired", curveNumber));
@@ -180,6 +183,8 @@ namespace SelfServer
             }
             translated.Debug(string.Format("Averaged Curve data :{0}", JsonConvert.SerializeObject(sumDData)));
             curveNumber = 0;
+            if(!string.IsNullOrEmpty(pathprefix))
+            File.WriteAllText(System.IO.Path.Combine(pathprefix, $"aggreated{curveNumber}"), JsonConvert.SerializeObject(sumDData));
 
         }
     }

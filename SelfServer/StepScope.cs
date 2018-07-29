@@ -35,6 +35,9 @@ namespace SelfServer
                 {
                     for (double d = 0.0; d < 1.0e-5; d = d + 1.0e-6)
                     {
+                        var pathprefix = $"data/volt_{v}/delay_{d}";
+                        System.IO.Directory.CreateDirectory(pathprefix);
+
                         if (ct.IsCancellationRequested)
                         {
                             return;
@@ -49,10 +52,10 @@ namespace SelfServer
                         translated.Debug($"{v} V");
                         for (int i = 0; i < numberCurve; i++)
                         {
-                            this.GetScopeCurve();
+                            this.GetScopeCurve(pathprefix);
                         }
-                        this.AggreateCurve();
-                        cameraCtl.AccquireImage($"data/delay_{d}");
+                        this.AggreateCurve(pathprefix);
+                        cameraCtl.AccquireImage(pathprefix);
                     }
                 }
                 cameraCtl.StopCamera();

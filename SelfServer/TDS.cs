@@ -28,11 +28,11 @@ namespace Server
         {
           if (ct.IsCancellationRequested)
           {
-            this.AggreateCurve();
+            this.AggreateCurve("");
           }
           else
           {
-            this.GetScopeCurve();
+            this.GetScopeCurve("");
           }        
         }
       }, ct);
