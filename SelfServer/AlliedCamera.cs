@@ -3,7 +3,7 @@ using AVT.VmbAPINET;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-
+using System.Linq;
 namespace SelfServer
 {
     public class SyncAlliedCamera
@@ -40,7 +40,7 @@ namespace SelfServer
             
         }
 
-        public string  AccquireImage(string pathsuffix)
+        public string  AccquireImage(string pathsuffix, out int total)
         {
             var datetime = DateTime.Now;
             var path = $"{pathsuffix}/{datetime.Month.ToString("D2")}_{datetime.Day.ToString("D2")}_{datetime.Year.ToString("D4")}__{datetime.Hour.ToString("D2")}_{datetime.Minute.ToString("D2")}_{datetime.Second.ToString("D2")}";
@@ -59,6 +59,18 @@ namespace SelfServer
                     int[] redValues = rgbStatistics.Red.Values;
                     int[] greenValues = rgbStatistics.Green.Values;
                     int[] blueValues = rgbStatistics.Blue.Values;
+                    total = 0;
+                    for (int i= 0;i < redValues.Length; i++){
+                        total += i * redValues[i];
+                    }
+                    for (int i = 0; i < greenValues.Length; i++)
+                    {
+                        total += i * greenValues[i];
+                    }
+                    for (int i = 0; i < blueValues.Length; i++)
+                    {
+                        total += i * blueValues[i];
+                    }
                     System.IO.File.WriteAllText(System.IO.Path.Combine(path, "red.txt"), string.Join(",", redValues));
                     System.IO.File.WriteAllText(System.IO.Path.Combine(path, "green.txt"), string.Join(",", greenValues));
                     System.IO.File.WriteAllText(System.IO.Path.Combine(path, "blue.txt"), string.Join(",", blueValues));

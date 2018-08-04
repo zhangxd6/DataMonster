@@ -45,8 +45,18 @@
                     <button class="btn btn-default" id="end">Stop</button>
                 </div>
                 <div role="tabpanel" class="tab-pane active fade in" id="tdsstep">
-                    <div id="tabpanelorginalchart" class="scope-trace"></div>
-                    <div id="tabpanelcurveChart" class="scope-trace"></div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div id="tabpanelorginalchart" class="scope-trace"></div>
+                            <div id="tabpanelcurveChart" class="scope-trace"></div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div id="tabpanelatomchart" class="scope-trace"></div>
+                        </div>
+                    </div>
+
+
+
                     <div>
                         <form class="form-inline">
                             <div class="form-group">
@@ -99,7 +109,7 @@
                     <button class="btn btn-default" id="startCamera">Start</button>
                     <button class="btn btn-default" id="endCamera">Stop</button>
                     <button class="btn btn-default" id="takePicture">TakePicture</button>
-                    <img id="snapshot"  style="width:500px"/>
+                    <img id="snapshot" style="width:500px" />
                     <div id="hist"></div>
                 </div>
             </div>

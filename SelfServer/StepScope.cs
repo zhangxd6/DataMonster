@@ -13,6 +13,7 @@ namespace SelfServer
         private SyncAlliedCamera cameraCtl = SyncAlliedCamera.Instance;
         private SRSDG535 sRSDG535 = SRSDG535.Instance;
         protected Device voltageDevice;
+        List<AtomCount> atomCounts = new List<AtomCount>();
         public void Start(double startV, double endV, double stepV, int numberCurve = 10)
         {
             base.Start();
@@ -31,11 +32,18 @@ namespace SelfServer
             {
                 ConfigureLogger();
                 InitScope();
+                atomCounts = new List<AtomCount>();
+                var datetime = DateTime.Now;
+                var path = $"{datetime.Month.ToString("D2")}_{datetime.Day.ToString("D2")}_{datetime.Year.ToString("D4")}__{datetime.Hour.ToString("D2")}_{datetime.Minute.ToString("D2")}_{datetime.Second.ToString("D2")}";
+
                 for (double v = startV; v < endV; v = v + stepV)
                 {
-                    for (double d = 0.0; d < 1.0e-5; d = d + 1.0e-6)
+                    //d is SRSDG535 delay
+                    double d = 0;// no delay
+                    
+                    //for (double d = 0.0; d < 1.0e-5; d = d + 1.0e-6)  // with delay
                     {
-                        var pathprefix = $"data/volt_{v}/delay_{d}";
+                        var pathprefix = $"data/{path}/volt_{v}/delay_{d}";
                         System.IO.Directory.CreateDirectory(pathprefix);
 
                         if (ct.IsCancellationRequested)
@@ -55,7 +63,10 @@ namespace SelfServer
                             this.GetScopeCurve(pathprefix);
                         }
                         this.AggreateCurve(pathprefix);
-                        cameraCtl.AccquireImage(pathprefix);
+                        int total = 0;
+                        cameraCtl.AccquireImage(pathprefix,out total);
+                        atomCounts.Add(new AtomCount() { V = v, Count = total });
+                        Clients.All.getAtoms(atomCounts);
                     }
                 }
                 cameraCtl.StopCamera();
@@ -63,5 +74,11 @@ namespace SelfServer
 
             }, ct);
         }
+    }
+
+    public class AtomCount
+    {
+        public double V { get; set; }
+        public int Count { get; set; }
     }
 }

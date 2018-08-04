@@ -18,8 +18,8 @@ namespace SelfServer
 
         public Results TakePicture()
         {
-
-           var path= cameraCtl.AccquireImage("wwwroot");
+            int total = 0;
+           var path= cameraCtl.AccquireImage("wwwroot",out total);
 
             //path = path.Replace("wwwroot/", "");
             var result = new Results()

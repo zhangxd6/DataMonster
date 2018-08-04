@@ -191,6 +191,35 @@
         }
       })
     }
+    stepHub.client.getAtoms = function (data) {
+        $('#tabpanelatomchart').highcharts({
+            title: {
+                text: 'Atom Count' ,
+                x: -20 //center
+            },
+           
+            yAxis: {
+                title: {
+                    text: 'Count'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            }
+            ,
+            series: [{
+                name: 'Data',
+                data: data.map(d => [d.V, d.Count])
+            }],
+            plotOptions: {
+                line: {
+                    animation: false
+                }
+            }
+        });
+    }
     $.connection.hub.start().done(function () {
         //$shape.draggable({
         //    drag: function () {
