@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace SelfServer
 {
@@ -69,6 +70,7 @@ namespace SelfServer
                         Clients.All.getAtoms(atomCounts);
                     }
                 }
+                System.IO.File.WriteAllText(System.IO.Path.Combine("data",path, "atomnumbersvsvoltage.txt"), JsonConvert.SerializeObject(atomCounts));
                 cameraCtl.StopCamera();
 
 
