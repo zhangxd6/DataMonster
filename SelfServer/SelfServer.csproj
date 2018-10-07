@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="AlliedCamera.cs" />
     <Compile Include="AlliedCameraScope.cs" />
+    <Compile Include="HPMircoWave.cs" />
     <Compile Include="IScopeHub.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
