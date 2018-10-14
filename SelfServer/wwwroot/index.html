@@ -35,6 +35,11 @@
                         Camera
                     </a>
                 </li>
+                <li role="presentation">
+                    <a href="#microwaveCamera" aria-controls="interactive" role="tab" data-toggle="tab">
+                        MicrowaveCamera
+                    </a>
+                </li>
             </ul>
 
             <div class="tab-content">
@@ -111,6 +116,33 @@
                     <button class="btn btn-default" id="takePicture">TakePicture</button>
                     <img id="snapshot" style="width:500px" />
                     <div id="hist"></div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane active fade in" id="microwaveCamera">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div id="tabpanelmicroatomchart" class="scope-trace"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label for="initialfreq">initialFreq</label>
+                                <input type="text" class="form-control" id="initialfreq" placeholder="2.00000">
+                            </div>
+                            <div class="form-group">
+                                <label for="finalfreq">finalFreq</label>
+                                <input type="text" class="form-control" id="finalfreq" placeholder="3.12345">
+                            </div>
+                            <div class="form-group">
+                                <label for="stepfreq">stepfreq</label>
+                                <input type="text" class="form-control" id="stepfreq" placeholder="0.00100">
+                            </div>
+                        </form>
+                        <button class="btn btn-default" id="microwaveCamerastart">Start</button>
+                        <button class="btn btn-default" id="microwaveCameraend">Stop</button>
+
+                    </div>
                 </div>
             </div>
         </div>

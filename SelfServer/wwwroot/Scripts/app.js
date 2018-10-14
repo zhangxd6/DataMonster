@@ -3,6 +3,14 @@
     var moveShapeHub = $.connection.tDS;
     var stepHub = $.connection.stepScope;
     var cameraHub = $.connection.alliedCameraScope;
+    var microcamera = $.connection.microWaveCamera;
+
+    $('#microwaveCamerastart').click(function () {
+        var init = $('#initialfreq').val();
+        var end = $('#finalfreq').val();
+        var step = $('#stepfreq').val();
+        microcamera.server.start(init, end, step);
+    });
 
     $('#stepstart').click(function () {
       var init = $('#initialVotage').val();
@@ -71,6 +79,37 @@
         arr.push(point.Y);
         return arr;
     }
+
+    microcamera.client.getCameraAtoms = function (data) {
+        $('#tabpanelmicroatomchart').highcharts({
+            title: {
+                text: 'Atom Count',
+                x: -20 //center
+            },
+
+            yAxis: {
+                title: {
+                    text: 'Count'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            }
+            ,
+            series: [{
+                name: 'Data',
+                data: data.map(d => [d.F, d.Count])
+            }],
+            plotOptions: {
+                line: {
+                    animation: false
+                }
+            }
+        });
+    }
+
     moveShapeHub.client.getData = function (data) {
         //$('#info').append(data);
         // d3_plot(data);
