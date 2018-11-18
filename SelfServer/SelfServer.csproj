@@ -105,6 +105,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="Thorlabs.LC100, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft.NET\Primary Interop Assemblies\Thorlabs.LC100.dll</HintPath>
+    </Reference>
     <Reference Include="VimbaNET, Version=1.7.0.24184, Culture=neutral, PublicKeyToken=96b729f24f119b9a, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Program Files\Allied Vision\Vimba_2.1\VimbaNET\Bin\Win64\VimbaNET.dll</HintPath>
@@ -121,8 +125,10 @@
     <Compile Include="ScopeHubBase.cs" />
     <Compile Include="SRSDG535.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="StepLC100.cs" />
     <Compile Include="StepScope.cs" />
     <Compile Include="TDS.cs" />
+    <Compile Include="ThorlabLC100.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="wwwroot\Content\bootstrap.css">

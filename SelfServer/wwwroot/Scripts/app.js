@@ -4,6 +4,7 @@
     var stepHub = $.connection.stepScope;
     var cameraHub = $.connection.alliedCameraScope;
     var microcamera = $.connection.microWaveCamera;
+    var lc100 = $.connection.stepLC100;
 
     $('#microwaveCamerastart').click(function () {
         var init = $('#initialfreq').val();
@@ -45,7 +46,21 @@
             alert('Camera Stoped ')
         })
     });
-    
+
+    $('#lc100end').click(() => {
+        lc100.server.stop().done(() => {
+            alert('Camera Stoped ')
+        })
+    });
+
+    $('#lc100start').click(function () {
+        var init = $('#iVol').val();
+        var end = $('#fVol').val();
+        var step = $('#stepVol').val();
+        var lowerIndex = $('#lowerIndex').val();
+        var higherIndex = $('#higherIndex').val();
+        lc100.server.start(init, end, step, lowerIndex, higherIndex);
+    });
     $('#takePicture').click(() => {
         cameraHub.server.takePicture().done(response => {
             $('#snapshot').attr('src', response.ImageSrc);
@@ -265,6 +280,38 @@
             }
         });
     }
+
+    lc100.client.getLC100Atoms = function (data) {
+        $('#tabpanellc100chart').highcharts({
+            title: {
+                text: 'Atom Count',
+                x: -20 //center
+            },
+
+            yAxis: {
+                title: {
+                    text: 'Count'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            }
+            ,
+            series: [{
+                name: 'Data',
+                data: data.map(d => [d.V, d.Count])
+            }],
+            plotOptions: {
+                line: {
+                    animation: false
+                }
+            }
+        });
+    }
+
+
     $.connection.hub.start().done(function () {
         //$shape.draggable({
         //    drag: function () {

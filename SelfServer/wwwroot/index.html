@@ -40,6 +40,11 @@
                         MicrowaveCamera
                     </a>
                 </li>
+                <li role="presentation">
+                    <a href="#lc100" aria-controls="interactive" role="tab" data-toggle="tab">
+                        LC100
+                    </a>
+                </li>
             </ul>
 
             <div class="tab-content">
@@ -141,6 +146,42 @@
                         </form>
                         <button class="btn btn-default" id="microwaveCamerastart">Start</button>
                         <button class="btn btn-default" id="microwaveCameraend">Stop</button>
+
+                    </div>
+                </div>
+
+
+                <div role="tabpanel" class="tab-pane active fade in" id="lc100">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div id="tabpanellc100chart" class="scope-trace"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label for="iVol">i Voltage</label>
+                                <input type="text" class="form-control" id="iVol" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="fVol">final Voltage</label>
+                                <input type="text" class="form-control" id="fVol" placeholder="3">
+                            </div>
+                            <div class="form-group">
+                                <label for="stepVol">step Voltage</label>
+                                <input type="text" class="form-control" id="stepVol" placeholder="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label for="lowerIndex">lowerIndex</label>
+                                <input type="text" class="form-control" id="lowerIndex" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="higherIndex">higherIndex</label>
+                                <input type="text" class="form-control" id="higherIndex" placeholder="2048">
+                            </div>
+                        </form>
+                        <button class="btn btn-default" id="lc100start">Start</button>
+                        <button class="btn btn-default" id="lc100end">Stop</button>
 
                     </div>
                 </div>
