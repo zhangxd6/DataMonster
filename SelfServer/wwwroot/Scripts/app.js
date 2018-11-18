@@ -40,6 +40,12 @@
             alert('Camera Stoped ')
         })
     });
+    $('#microwaveCameraend').click(() => {
+        microcamera.server.stop().done(() => {
+            alert('Camera Stoped ')
+        })
+    });
+    
     $('#takePicture').click(() => {
         cameraHub.server.takePicture().done(response => {
             $('#snapshot').attr('src', response.ImageSrc);

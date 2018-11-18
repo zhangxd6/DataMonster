@@ -35,7 +35,7 @@ namespace SelfServer
                 var path = $"{datetime.Month.ToString("D2")}_{datetime.Day.ToString("D2")}_{datetime.Year.ToString("D4")}__{datetime.Hour.ToString("D2")}_{datetime.Minute.ToString("D2")}_{datetime.Second.ToString("D2")}";
 
 
-                for (int v = Convert.ToInt32(start*10000); v <= stop*10000; v = v + Convert.ToInt32(step *10000))
+                for (int v = Convert.ToInt32(start*1000000); v <= stop*1000000; v = v + Convert.ToInt32(step *1000000))
                 {
                     var pathprefix = $"data/{path}/freq_{v}";
                     System.IO.Directory.CreateDirectory(pathprefix);
@@ -45,7 +45,7 @@ namespace SelfServer
                         return;
                     }
 
-                    string freq = $"Q{(v).ToString("D5")}Z0";
+                    string freq = $"Q{(v).ToString("D7")}Z0";
                     hPMircoWave.SetFrequnecy(freq);
 
                     int total = 0;
