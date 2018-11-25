@@ -11,14 +11,12 @@ namespace SelfServer
 {
     public class StepLC100 : ScopeHubBase
     {
-        private SyncAlliedCamera cameraCtl = SyncAlliedCamera.Instance;
         private ThorlabLC100 lc100 = ThorlabLC100.Instance;
         protected Device voltageDevice;
         List<AtomCount> atomCounts = new List<AtomCount>();
         public void Start(double startV, double endV, double stepV, int lowerIndex, int highIndex)
         {
             base.Start();
-            cameraCtl.Start();
 
             voltageDevice = new Device(0, new Address(2, 96));
             voltageDevice.Write("*IDN?");
@@ -60,6 +58,7 @@ namespace SelfServer
                         sum += cldata[i];
                     }
 
+                    System.IO.File.WriteAllText(System.IO.Path.Combine(pathprefix, "trace.txt"), string.Join(",", cldata));
                     this.curveNumber = 0;
                     this.sumDData = new List<Server.CurvePoint>();
                     raw.Trace($"{v} V");

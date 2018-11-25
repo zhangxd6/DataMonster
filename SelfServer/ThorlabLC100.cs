@@ -27,12 +27,13 @@ namespace SelfServer
         public void Init()
         {
             string resourceName = "USB0::0x1313::0x80A0::M00415801::RAW";
-            lc100Driver = new LC100_Drv(resourceName, false, false);
+            lc100Driver = lc100Driver?? new LC100_Drv(resourceName, false, false);
             //set integration time
             int status;
             int res = lc100Driver.getDeviceStatus(out status);
 
-            res = lc100Driver.setIntegrationTime((double)1.0);
+            res = lc100Driver.setIntegrationTime((double)0.001054);
+            //lc100Driver.setOperatingMode(0);
 
         }
 
@@ -40,8 +41,7 @@ namespace SelfServer
         {
             int status;
             int res = lc100Driver.getDeviceStatus(out status);
-            // has the device started?
-            res = lc100Driver.getDeviceStatus(out status);
+         
 
             // wait 3 sec for a new data transfer
             if ((status & 0x00000001) == 0 && (status & 0x00000002) == 0)
@@ -53,6 +53,8 @@ namespace SelfServer
                 {
                     elapsedTime = DateTime.Now - startTime;
                 }
+                // has the device started?
+                res = lc100Driver.getDeviceStatus(out status);
             }
             if ((status & 0x00000001) > 0 || (status & 0x00000002) > 0)
             {
@@ -67,5 +69,9 @@ namespace SelfServer
             return null;
         }
 
+        public void Release()
+        {
+            lc100Driver.setOperatingMode(LC100_DrvConstants.OpmodeIdle);
+        }
     }
 }
