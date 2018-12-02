@@ -45,6 +45,16 @@
                         LC100
                     </a>
                 </li>
+                <li role="presentation">
+                    <a href="#lc100macrowave" aria-controls="interactive" role="tab" data-toggle="tab">
+                        MicrowaveLC100
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#lc100delay" aria-controls="interactive" role="tab" data-toggle="tab">
+                        DelayLC100
+                    </a>
+                </li>
             </ul>
 
             <div class="tab-content">
@@ -185,6 +195,77 @@
 
                     </div>
                 </div>
+
+                <div role="tabpanel" class="tab-pane active fade in" id="lc100macrowave">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div id="tabpanellc100macrowavechart" class="scope-trace"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label for="initialfreqlc100">initialFreq</label>
+                                <input type="text" class="form-control" id="initialfreqlc100" placeholder="2.00000">
+                            </div>
+                            <div class="form-group">
+                                <label for="finalfreqlc100">finalFreq</label>
+                                <input type="text" class="form-control" id="finalfreqlc100" placeholder="3.12345">
+                            </div>
+                            <div class="form-group">
+                                <label for="stepfreqlc100">stepfreq</label>
+                                <input type="text" class="form-control" id="stepfreqlc100" placeholder="0.00100">
+                            </div>
+                            <div class="form-group">
+                                <label for="lowerIndexlc100">lowerIndex</label>
+                                <input type="text" class="form-control" id="lowerIndexlc100" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="higherIndexlc100">higherIndex</label>
+                                <input type="text" class="form-control" id="higherIndexlc100" placeholder="2048">
+                            </div>
+                        </form>
+                        <button class="btn btn-default" id="macrowavelc100start">Start</button>
+                        <button class="btn btn-default" id="macrwavelc100end">Stop</button>
+
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane active fade in" id="lc100delay">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div id="tabpanellc100delaychart" class="scope-trace"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label for="initialdelaylc100">initialDelay</label>
+                                <input type="text" class="form-control" id="initialdelaylc100" placeholder="2.00000">
+                            </div>
+                            <div class="form-group">
+                                <label for="finaldelaylc100">finalDelay</label>
+                                <input type="text" class="form-control" id="finaldelaylc100" placeholder="3.12345">
+                            </div>
+                            <div class="form-group">
+                                <label for="stepdelaylc100">stepdelay</label>
+                                <input type="text" class="form-control" id="stepdelaylc100" placeholder="0.00100">
+                            </div>
+                            <div class="form-group">
+                                <label for="lowerIndexlc100delay">lowerIndex</label>
+                                <input type="text" class="form-control" id="lowerIndexlc100delay" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="higherIndexlc100delay">higherIndex</label>
+                                <input type="text" class="form-control" id="higherIndexlc100delay" placeholder="2048">
+                            </div>
+                        </form>
+                        <button class="btn btn-default" id="dealylc100start">Start</button>
+                        <button class="btn btn-default" id="delaylc100end">Stop</button>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

@@ -5,6 +5,9 @@
     var cameraHub = $.connection.alliedCameraScope;
     var microcamera = $.connection.microWaveCamera;
     var lc100 = $.connection.stepLC100;
+    var microwaveLc100 = $.connection.microWaveLC100;
+    var delayLc100 = $.connection.delayLC100;
+
 
     $('#microwaveCamerastart').click(function () {
         var init = $('#initialfreq').val();
@@ -53,6 +56,37 @@
         })
     });
 
+    $('#dealylc100start').click(function () {
+        var init = $('#initialdelaylc100').val();
+        var end = $('#finaldelaylc100').val();
+        var step = $('#stepdelaylc100').val();
+        var lowerIndex = $('#lowerIndexlc100delay').val();
+        var higherIndex = $('#higherIndexlc100delay').val();
+        delayLc100.server.start(init, end, step, lowerIndex, higherIndex);
+    });
+
+    $('#delaylc100end').click(() => {
+        delayLc100.server.stop().done(() => {
+            alert('Camera Stoped ')
+        })
+    });
+
+
+    $('#macrowavelc100start').click(function () {
+        var init = $('#initialfreqlc100').val();
+        var end = $('#finalfreqlc100').val();
+        var step = $('#stepfreqlc100').val();
+        var lowerIndex = $('#lowerIndexlc100').val();
+        var higherIndex = $('#higherIndexlc100').val();
+        microwaveLc100.server.start(init, end, step, lowerIndex, higherIndex);
+    });
+
+    $('#macrwavelc100end').click(() => {
+        microwaveLc100.server.stop().done(() => {
+            alert('Camera Stoped ')
+        })
+    });
+
     $('#lc100start').click(function () {
         var init = $('#iVol').val();
         var end = $('#fVol').val();
@@ -61,6 +95,7 @@
         var higherIndex = $('#higherIndex').val();
         lc100.server.start(init, end, step, lowerIndex, higherIndex);
     });
+
     $('#takePicture').click(() => {
         cameraHub.server.takePicture().done(response => {
             $('#snapshot').attr('src', response.ImageSrc);
@@ -311,7 +346,65 @@
         });
     }
 
+    microwaveLc100.client.getCameraAtoms = function (data) {
+        $('#tabpanellc100macrowavechart').highcharts({
+            title: {
+                text: 'Atom Count',
+                x: -20 //center
+            },
 
+            yAxis: {
+                title: {
+                    text: 'Count'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            }
+            ,
+            series: [{
+                name: 'Data',
+                data: data.map(d => [d.F, d.Count])
+            }],
+            plotOptions: {
+                line: {
+                    animation: false
+                }
+            }
+        });
+    }
+
+    delayLc100.client.getCameraAtoms = function (data) {
+        $('#tabpanellc100delaychart').highcharts({
+            title: {
+                text: 'Atom Count',
+                x: -20 //center
+            },
+
+            yAxis: {
+                title: {
+                    text: 'Count'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            }
+            ,
+            series: [{
+                name: 'Data',
+                data: data.map(d => [d.D, d.Count])
+            }],
+            plotOptions: {
+                line: {
+                    animation: false
+                }
+            }
+        });
+    }
     $.connection.hub.start().done(function () {
         //$shape.draggable({
         //    drag: function () {
