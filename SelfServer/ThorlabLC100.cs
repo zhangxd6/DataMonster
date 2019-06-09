@@ -26,7 +26,9 @@ namespace SelfServer
 
         public void Init()
         {
-            string resourceName = "USB0::0x1313::0x80A0::M00415801::RAW";
+            var serialnumber = "M00510057";
+            //old serial number = M00415801
+            string resourceName = $"USB0::0x1313::0x80A0::{serialnumber}::RAW";
             lc100Driver = lc100Driver?? new LC100_Drv(resourceName, false, false);
             //set integration time
             int status;
