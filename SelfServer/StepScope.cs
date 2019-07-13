@@ -58,19 +58,20 @@ namespace SelfServer
                         this.curveNumber = 0;
                         this.sumDData = new List<Server.CurvePoint>();
                         raw.Trace($"{v} V");
-                        translated.Debug($"{v} V");
+                       // translated.Debug($"{v} V");
                         for (int i = 0; i < numberCurve; i++)
                         {
                             this.GetScopeCurve(pathprefix);
                         }
                         this.AggreateCurve(pathprefix);
                         int total = 0;
-                        cameraCtl.AccquireImage(pathprefix,out total);
+                        //uncommet to take images
+                        //cameraCtl.AccquireImage(pathprefix,out total);
                         atomCounts.Add(new AtomCount() { V = v, Count = total });
                         Clients.All.getAtoms(atomCounts);
                     }
                 }
-                System.IO.File.WriteAllText(System.IO.Path.Combine("data",path, "atomnumbersvsvoltage.txt"), JsonConvert.SerializeObject(atomCounts));
+                Task.Run(()=>System.IO.File.WriteAllText(System.IO.Path.Combine("data",path, "atomnumbersvsvoltage.txt"), JsonConvert.SerializeObject(atomCounts)));
                 cameraCtl.StopCamera();
 
 

@@ -151,11 +151,11 @@ namespace SelfServer
                     }
                 }
 
-                raw.Trace(JsonConvert.SerializeObject(curvedata.Orginal));
-                translated.Debug(JsonConvert.SerializeObject(curvedata.Points));
+                //raw.Trace(JsonConvert.SerializeObject(curvedata.Orginal));
+                //translated.Debug(JsonConvert.SerializeObject(curvedata.Points));
                 Clients.All.getData(curvedata);
                 if (!string.IsNullOrEmpty(pathprefix))
-                    File.WriteAllText(System.IO.Path.Combine(pathprefix, $"raw_{curveNumber}"), JsonConvert.SerializeObject(curvedata.Orginal));
+                    Task.Run(()=>File.WriteAllText(System.IO.Path.Combine(pathprefix, $"raw_{curveNumber}"), JsonConvert.SerializeObject(curvedata.Orginal)));
                 //curveNumber++;
                 Interlocked.Increment(ref curveNumber);
             }
@@ -167,24 +167,25 @@ namespace SelfServer
             finally
             {
                 device.Clear();
-                Thread.Sleep(1000);
+                //may need sleep to allow camera 
+                //Thread.Sleep(1000);
             }
         }
 
         protected void AggreateCurve(string pathprefix)
         {
             logger.Trace(string.Format("{0} waveforms are acquired", curveNumber));
-            translated.Debug(string.Format("{0} waveforms are acquired", curveNumber));
+            //translated.Debug(string.Format("{0} waveforms are acquired", curveNumber));
 
-            translated.Debug(string.Format("Sumed curve data :{0}", JsonConvert.SerializeObject(sumDData)));
+            //translated.Debug(string.Format("Sumed curve data :{0}", JsonConvert.SerializeObject(sumDData)));
             foreach (var point in sumDData)
             {
                 point.Y /= curveNumber;
             }
-            translated.Debug(string.Format("Averaged Curve data :{0}", JsonConvert.SerializeObject(sumDData)));
+            //translated.Debug(string.Format("Averaged Curve data :{0}", JsonConvert.SerializeObject(sumDData)));
             curveNumber = 0;
             if(!string.IsNullOrEmpty(pathprefix))
-            File.WriteAllText(System.IO.Path.Combine(pathprefix, $"aggreated{curveNumber}"), JsonConvert.SerializeObject(sumDData));
+            Task.Run(()=>File.WriteAllText(System.IO.Path.Combine(pathprefix, $"aggreated{curveNumber}"), JsonConvert.SerializeObject(sumDData)));
 
         }
     }
