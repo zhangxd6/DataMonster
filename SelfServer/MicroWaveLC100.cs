@@ -57,13 +57,13 @@ namespace SelfServer
                     {
                         sum += cldata[i];
                     }
-                    System.IO.File.WriteAllText(System.IO.Path.Combine(pathprefix, "trace.txt"), string.Join(",", cldata));
+                    Task.Run(()=>System.IO.File.WriteAllText(System.IO.Path.Combine(pathprefix, "trace.txt"), string.Join(",", cldata)));
 
                     atomCounts.Add(new AtomFreqCount() { F = v, Count = sum });
                     Clients.All.getCameraAtoms(atomCounts);
 
                 }
-                System.IO.File.WriteAllText(System.IO.Path.Combine("data", path, "atomnumbersvsfreq.txt"), JsonConvert.SerializeObject(atomCounts));
+                Task.Run(()=>System.IO.File.WriteAllText(System.IO.Path.Combine("data", path, "atomnumbersvsfreq.txt"), string.Join(Environment.NewLine,atomCounts.Select(x=>$"{x.F},{x.Count}"))));
 
             }, ct);
         }

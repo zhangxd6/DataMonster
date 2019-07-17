@@ -185,7 +185,7 @@ namespace SelfServer
             //translated.Debug(string.Format("Averaged Curve data :{0}", JsonConvert.SerializeObject(sumDData)));
             curveNumber = 0;
             if(!string.IsNullOrEmpty(pathprefix))
-            Task.Run(()=>File.WriteAllText(System.IO.Path.Combine(pathprefix, $"aggreated{curveNumber}"), JsonConvert.SerializeObject(sumDData)));
+            Task.Run(()=>File.WriteAllText(System.IO.Path.Combine(pathprefix, $"aggreated{curveNumber}"), string.Join(Environment.NewLine,sumDData.Select(x=>$"{x.X},{x.Y}"))));
 
         }
     }

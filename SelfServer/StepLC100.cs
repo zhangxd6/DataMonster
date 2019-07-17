@@ -58,7 +58,7 @@ namespace SelfServer
                         sum += cldata[i];
                     }
 
-                    System.IO.File.WriteAllText(System.IO.Path.Combine(pathprefix, "trace.txt"), string.Join(",", cldata));
+                   Task.Run(()=> System.IO.File.WriteAllText(System.IO.Path.Combine(pathprefix, "trace.txt"), string.Join(",", cldata)));
                     this.curveNumber = 0;
                     this.sumDData = new List<Server.CurvePoint>();
                     raw.Trace($"{v} V");
@@ -69,7 +69,7 @@ namespace SelfServer
                 }
 
 
-                System.IO.File.WriteAllText(System.IO.Path.Combine("data", path, "atomnumbersvsvoltage.txt"), JsonConvert.SerializeObject(atomCounts));
+                Task.Run(()=>System.IO.File.WriteAllText(System.IO.Path.Combine("data", path, "atomnumbersvsvoltage.txt"), string.Join(Environment.NewLine,atomCounts.Select(x=>$"{x.V},{x.Count}"))));
             
 
 

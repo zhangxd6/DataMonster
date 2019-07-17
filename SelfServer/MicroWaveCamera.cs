@@ -55,7 +55,7 @@ namespace SelfServer
                     Clients.All.getCameraAtoms(atomCounts);
 
                 }
-                System.IO.File.WriteAllText(System.IO.Path.Combine("data", path, "atomnumbersvsfreq.txt"), JsonConvert.SerializeObject(atomCounts));
+                Task.Run(()=>System.IO.File.WriteAllText(System.IO.Path.Combine("data", path, "atomnumbersvsfreq.txt"), string.Join(Environment.NewLine, atomCounts.Select(x=>$"{x.F},{x.Count}"))));
                 cameraCtl.StopCamera();
 
             },ct);
