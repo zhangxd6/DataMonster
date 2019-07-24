@@ -65,7 +65,7 @@ namespace SelfServer
                 Task.Run(()=>System.IO.File.WriteAllText(System.IO.Path.Combine("data", path, "atomnumbersvsdelay.txt"), string.Join(Environment.NewLine,atomCounts.Select(x=>
                 {
                     return $"{x.D},{x.Count}";
-                }).ToArray())));
+                }).ToArray()), System.Text.Encoding.ASCII));
 
             }, ct);
         }

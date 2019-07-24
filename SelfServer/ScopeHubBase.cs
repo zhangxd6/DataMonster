@@ -155,7 +155,7 @@ namespace SelfServer
                 //translated.Debug(JsonConvert.SerializeObject(curvedata.Points));
                 Clients.All.getData(curvedata);
                 if (!string.IsNullOrEmpty(pathprefix))
-                    Task.Run(()=>File.WriteAllText(System.IO.Path.Combine(pathprefix, $"raw_{curveNumber}"), JsonConvert.SerializeObject(curvedata.Orginal)));
+                    Task.Run(()=>File.WriteAllText(System.IO.Path.Combine(pathprefix, $"raw_{curveNumber}"), JsonConvert.SerializeObject(curvedata.Orginal), System.Text.Encoding.ASCII));
                 //curveNumber++;
                 Interlocked.Increment(ref curveNumber);
             }
@@ -185,7 +185,7 @@ namespace SelfServer
             //translated.Debug(string.Format("Averaged Curve data :{0}", JsonConvert.SerializeObject(sumDData)));
             curveNumber = 0;
             if(!string.IsNullOrEmpty(pathprefix))
-            Task.Run(()=>File.WriteAllText(System.IO.Path.Combine(pathprefix, $"aggreated{curveNumber}"), string.Join(Environment.NewLine,sumDData.Select(x=>$"{x.X},{x.Y}"))));
+            Task.Run(()=>File.WriteAllText(System.IO.Path.Combine(pathprefix, $"aggreated{curveNumber}"), string.Join(Environment.NewLine,sumDData.Select(x=>$"{x.X},{x.Y}")), System.Text.Encoding.ASCII));
 
         }
     }

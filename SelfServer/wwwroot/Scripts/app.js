@@ -8,6 +8,7 @@
     var microwaveLc100 = $.connection.microWaveLC100;
     var delayLc100 = $.connection.delayLC100;
 
+    var motor = $.connection.motorK10RC1;
 
     $('#microwaveCamerastart').click(function () {
         var init = $('#initialfreq').val();
@@ -94,6 +95,29 @@
         var lowerIndex = $('#lowerIndex').val();
         var higherIndex = $('#higherIndex').val();
         lc100.server.start(init, end, step, lowerIndex, higherIndex);
+    });
+
+
+    $('#motorstart').click(function () {
+        
+        var init = $('#initialdelaymotor').val();
+        var end = $('#finaldelaymotor').val();
+        var step = $('#stepdelaymotor').val();
+        var lowerIndex = $('#lowerIndexmotor').val();
+        var higherIndex = $('#higherIndexmotor').val();
+
+        var maxVel = $('#maxVel').val();
+        var acceleration = $('#acceleration').val();
+        var motorstep = $('#motorstep').val();
+        var motornubmeroftrace = $('#motornubmeroftrace').val();
+
+        motor.server.start(init, end, step, lowerIndex, higherIndex, maxVel, acceleration, motorstep, motornubmeroftrace);
+    });
+
+    $('#motorend').click(function () {
+        motor.server.stop().done(() => {
+            alert('Camera Stoped ')
+        })
     });
 
     $('#takePicture').click(() => {

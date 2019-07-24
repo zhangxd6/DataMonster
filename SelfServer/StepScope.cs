@@ -71,7 +71,7 @@ namespace SelfServer
                         Clients.All.getAtoms(atomCounts);
                     }
                 }
-                Task.Run(()=>System.IO.File.WriteAllText(System.IO.Path.Combine("data",path, "atomnumbersvsvoltage.txt"), string.Join(Environment.NewLine,atomCounts.Select(x=>$"{x.V},{x.Count}"))));
+                Task.Run(()=>System.IO.File.WriteAllText(System.IO.Path.Combine("data",path, "atomnumbersvsvoltage.txt"), string.Join(Environment.NewLine,atomCounts.Select(x=>$"{x.V},{x.Count}")), System.Text.Encoding.ASCII));
                 cameraCtl.StopCamera();
 
 

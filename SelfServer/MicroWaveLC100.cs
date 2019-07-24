@@ -57,7 +57,7 @@ namespace SelfServer
                     {
                         sum += cldata[i];
                     }
-                    Task.Run(()=>System.IO.File.WriteAllText(System.IO.Path.Combine(pathprefix, "trace.txt"), string.Join(",", cldata)));
+                    Task.Run(()=>System.IO.File.WriteAllText(System.IO.Path.Combine(pathprefix, "trace.txt"), string.Join(",", cldata), System.Text.Encoding.ASCII));
 
                     atomCounts.Add(new AtomFreqCount() { F = v, Count = sum });
                     Clients.All.getCameraAtoms(atomCounts);
