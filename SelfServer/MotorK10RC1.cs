@@ -24,10 +24,12 @@ namespace SelfServer
             {
                 ConfigureLogger();
                 motor.Init();
-                InitScope();
 
                 var datetime = DateTime.Now;
                 var path = $"{datetime.Month.ToString("D2")}_{datetime.Day.ToString("D2")}_{datetime.Year.ToString("D4")}__{datetime.Hour.ToString("D2")}_{datetime.Minute.ToString("D2")}_{datetime.Second.ToString("D2")}";
+
+                InitScope($"data/{path}");
+
                 for (decimal d = start; d < stop; d = d + step)
                 {
                     var pathprefix = $"data/{path}/motor_{d}";

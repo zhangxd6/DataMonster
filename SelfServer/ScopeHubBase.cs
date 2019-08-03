@@ -72,7 +72,7 @@ namespace SelfServer
             logger.Trace("Starting collecting the waveform");
         }
 
-        protected void InitScope()
+        protected void InitScope(string pathprefix)
         {
             device = new Device(0, new Address(13, 96));
             device.Write("*IDN?");
@@ -109,6 +109,10 @@ namespace SelfServer
             meta.Yzero = Convert.ToDouble(device.ReadString());
 
             logger.Trace(string.Format("Waveform metadata : {0}", JsonConvert.SerializeObject(meta)));
+
+            if (!string.IsNullOrEmpty(pathprefix))
+                Task.Run(() => File.WriteAllText(System.IO.Path.Combine(pathprefix, $"metadata"), JsonConvert.SerializeObject(meta), System.Text.Encoding.ASCII));
+
             curveNumber = 0;
         }
 
