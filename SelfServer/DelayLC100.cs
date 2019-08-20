@@ -22,9 +22,9 @@ namespace SelfServer
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="start">2.12345Gz</param>
-        /// <param name="stop">3.12345Gz</param>
-        /// <param name="step">0.00100Gz</param>
+        /// <param name="start">2sec</param>
+        /// <param name="stop">3sec</param>
+        /// <param name="step">0.1sec</param>
         public void Start(double start, double stop, double step, int lowerIndex, int highIndex)
         {
             base.Start();
@@ -47,7 +47,7 @@ namespace SelfServer
                     {
                         return;
                     }
-                    sRSDG535.SetDelay(2, d);
+                    sRSDG535.SetDelay(2, d*1e-6);
 
                     //get data
                     var cldata = lc100.GetData();
@@ -56,13 +56,16 @@ namespace SelfServer
                     {
                         sum += cldata[i];
                     }
-                    System.IO.File.WriteAllText(System.IO.Path.Combine(pathprefix, "trace.txt"), string.Join(",", cldata));
+                    Task.Run(()=>System.IO.File.WriteAllText(System.IO.Path.Combine(pathprefix, "trace.txt"), string.Join(",", cldata)));
 
                     atomCounts.Add(new AtomDelayCount() {  D = d, Count = sum });
                     Clients.All.getCameraAtoms(atomCounts);
 
                 }
-                System.IO.File.WriteAllText(System.IO.Path.Combine("data", path, "atomnumbersvsdelay.txt"), JsonConvert.SerializeObject(atomCounts));
+                Task.Run(()=>System.IO.File.WriteAllText(System.IO.Path.Combine("data", path, "atomnumbersvsdelay.txt"), string.Join(Environment.NewLine,atomCounts.Select(x=>
+                {
+                    return $"{x.D},{x.Count}";
+                }).ToArray()), System.Text.Encoding.ASCII));
 
             }, ct);
         }

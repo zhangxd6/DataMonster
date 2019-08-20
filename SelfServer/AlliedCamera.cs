@@ -71,9 +71,9 @@ namespace SelfServer
                     {
                         total += i * blueValues[i];
                     }
-                    System.IO.File.WriteAllText(System.IO.Path.Combine(path, "red.txt"), string.Join(",", redValues));
-                    System.IO.File.WriteAllText(System.IO.Path.Combine(path, "green.txt"), string.Join(",", greenValues));
-                    System.IO.File.WriteAllText(System.IO.Path.Combine(path, "blue.txt"), string.Join(",", blueValues));
+                    System.IO.File.WriteAllText(System.IO.Path.Combine(path, "red.txt"), string.Join(",", redValues), System.Text.Encoding.ASCII);
+                    System.IO.File.WriteAllText(System.IO.Path.Combine(path, "green.txt"), string.Join(",", greenValues), System.Text.Encoding.ASCII);
+                    System.IO.File.WriteAllText(System.IO.Path.Combine(path, "blue.txt"), string.Join(",", blueValues), System.Text.Encoding.ASCII);
 
                     bitmap.Save(fileName, ImageFormat.Bmp);
                     Console.WriteLine("Frame status complete");

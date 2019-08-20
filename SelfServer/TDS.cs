@@ -21,7 +21,7 @@ namespace Server
     {
       base.Start();
       this.ConfigureLogger();
-      this.InitScope();
+      this.InitScope("");
       Task.Factory.StartNew(() =>
       {
         while (true)

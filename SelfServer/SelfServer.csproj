@@ -14,7 +14,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -109,6 +109,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Program Files (x86)\Microsoft.NET\Primary Interop Assemblies\Thorlabs.LC100.dll</HintPath>
     </Reference>
+    <Reference Include="Thorlabs.MotionControl.DeviceManagerCLI, Version=1.14.18.15642, Culture=neutral, PublicKeyToken=c7ec6d6d6e2435e7, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\Motor\Thorlabs.MotionControl.DeviceManagerCLI.dll</HintPath>
+    </Reference>
+    <Reference Include="Thorlabs.MotionControl.GenericMotorCLI, Version=1.14.18.15642, Culture=neutral, PublicKeyToken=c7ec6d6d6e2435e7, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\Motor\Thorlabs.MotionControl.GenericMotorCLI.dll</HintPath>
+    </Reference>
+    <Reference Include="Thorlabs.MotionControl.IntegratedStepperMotorsCLI, Version=1.14.18.15642, Culture=neutral, PublicKeyToken=c7ec6d6d6e2435e7, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\Motor\Thorlabs.MotionControl.IntegratedStepperMotorsCLI.dll</HintPath>
+    </Reference>
     <Reference Include="VimbaNET, Version=1.7.0.24184, Culture=neutral, PublicKeyToken=96b729f24f119b9a, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Program Files\Allied Vision\Vimba_2.1\VimbaNET\Bin\Win64\VimbaNET.dll</HintPath>
@@ -121,9 +133,11 @@
     <Compile Include="AtomFreqCount.cs" />
     <Compile Include="HPMircoWave.cs" />
     <Compile Include="IScopeHub.cs" />
+    <Compile Include="K10RC1.cs" />
     <Compile Include="MicroWaveCamera.cs" />
     <Compile Include="DelayLC100.cs" />
     <Compile Include="MicroWaveLC100.cs" />
+    <Compile Include="MotorK10RC1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScopeHubBase.cs" />
@@ -135,6 +149,11 @@
     <Compile Include="ThorlabLC100.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Lib\Motor\Thorlabs.MotionControl.DeviceManager.dll" />
+    <Content Include="Lib\Motor\Thorlabs.MotionControl.DeviceManagerCLI.dll" />
+    <Content Include="Lib\Motor\Thorlabs.MotionControl.GenericMotorCLI.dll" />
+    <Content Include="Lib\Motor\Thorlabs.MotionControl.IntegratedStepperMotors.dll" />
+    <Content Include="Lib\Motor\Thorlabs.MotionControl.IntegratedStepperMotorsCLI.dll" />
     <Content Include="wwwroot\Content\bootstrap.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -234,6 +253,9 @@
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy $(ProjectDir)lib\motor $(TargetDir) /Y /I</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

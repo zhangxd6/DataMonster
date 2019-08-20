@@ -72,7 +72,7 @@ namespace SelfServer
             logger.Trace("Starting collecting the waveform");
         }
 
-        protected void InitScope()
+        protected void InitScope(string pathprefix)
         {
             device = new Device(0, new Address(13, 96));
             device.Write("*IDN?");
@@ -82,7 +82,7 @@ namespace SelfServer
             string channel = "CH2";
             device.Reset();
             device.Write(string.Format("DAT:SOU {0}", channel));
-            device.Write("DAT:ENC RIB;WID 1");
+            device.Write("DAT:ENC RPB;WID 1");
             device.Write("DAT:STAR 1");
             device.Write("DAT:STOP 2500");
             device.Write("HEAD OFF");
@@ -104,11 +104,15 @@ namespace SelfServer
             device.Write("WFMPre:Ymult?");
             meta.YMult = Convert.ToDouble(device.ReadString());
             device.Write("WFMPre:Yoff?");
-            meta.Yoff = Convert.ToDouble(device.ReadString());
+            meta.Yoff = Convert.ToDouble(device.ReadString())-127;
             device.Write("WFMPre:YZero?");
             meta.Yzero = Convert.ToDouble(device.ReadString());
 
             logger.Trace(string.Format("Waveform metadata : {0}", JsonConvert.SerializeObject(meta)));
+
+            if (!string.IsNullOrEmpty(pathprefix))
+                Task.Run(() => File.WriteAllText(System.IO.Path.Combine(pathprefix, $"metadata"), JsonConvert.SerializeObject(meta), System.Text.Encoding.ASCII));
+
             curveNumber = 0;
         }
 
@@ -132,7 +136,7 @@ namespace SelfServer
                 // int length = Convert.ToInt32(data[1].ToString());
                 for (int j = 0; j < npt; j++)
                 {
-                    int pointData = (int)waveform[j];
+                    int pointData = (int)waveform[j]-128;
                     curvedata.Orginal.Add(pointData);
                     CurvePoint point = new CurvePoint()
                     {
@@ -155,7 +159,7 @@ namespace SelfServer
                 //translated.Debug(JsonConvert.SerializeObject(curvedata.Points));
                 Clients.All.getData(curvedata);
                 if (!string.IsNullOrEmpty(pathprefix))
-                    Task.Run(()=>File.WriteAllText(System.IO.Path.Combine(pathprefix, $"raw_{curveNumber}"), JsonConvert.SerializeObject(curvedata.Orginal)));
+                    Task.Run(()=>File.WriteAllText(System.IO.Path.Combine(pathprefix, $"raw_{curveNumber}"), JsonConvert.SerializeObject(curvedata.Orginal), System.Text.Encoding.ASCII));
                 //curveNumber++;
                 Interlocked.Increment(ref curveNumber);
             }
@@ -185,11 +189,8 @@ namespace SelfServer
             //translated.Debug(string.Format("Averaged Curve data :{0}", JsonConvert.SerializeObject(sumDData)));
             curveNumber = 0;
             if(!string.IsNullOrEmpty(pathprefix))
-            Task.Run(()=>File.WriteAllText(System.IO.Path.Combine(pathprefix, $"aggreated{curveNumber}"), String.Join(Environment.NewLine, sumDData.Select(x=>
-            {
-                return $"{x.X},{x.Y}";
-            }).ToArray())));
-            
+            Task.Run(()=>File.WriteAllText(System.IO.Path.Combine(pathprefix, $"aggreated{curveNumber}"), string.Join(Environment.NewLine,sumDData.Select(x=>$"{x.X},{x.Y}")), System.Text.Encoding.ASCII));
+
         }
     }
 }

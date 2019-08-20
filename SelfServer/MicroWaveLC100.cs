@@ -31,11 +31,12 @@ namespace SelfServer
             {
                 ConfigureLogger();
                 lc100.Init();
-
-                atomCounts = new List<AtomFreqCount>();
                 var datetime = DateTime.Now;
                 var path = $"{datetime.Month.ToString("D2")}_{datetime.Day.ToString("D2")}_{datetime.Year.ToString("D4")}__{datetime.Hour.ToString("D2")}_{datetime.Minute.ToString("D2")}_{datetime.Second.ToString("D2")}";
 
+                InitScope($"data/{path}");
+                atomCounts = new List<AtomFreqCount>();
+                
 
                 for (int v = Convert.ToInt32(start * 1000000); v <= stop * 1000000; v = v + Convert.ToInt32(step * 1000000))
                 {
@@ -50,6 +51,18 @@ namespace SelfServer
                     string freq = $"Q{(v).ToString("D7")}Z0";
                     hPMircoWave.SetFrequnecy(freq);
 
+                    this.curveNumber = 0;
+
+                    int numberCurve = 1;
+                        this.sumDData = new List<Server.CurvePoint>();
+                        raw.Trace($"{v} Ghz");
+                       // translated.Debug($"{v} V");
+                        for (int i = 0; i < numberCurve; i++)
+                        {
+                            this.GetScopeCurve(pathprefix);
+                        }
+                        this.AggreateCurve(pathprefix);
+
                     //get data
                     var cldata = lc100.GetData();
                     int sum = 0;
@@ -57,13 +70,13 @@ namespace SelfServer
                     {
                         sum += cldata[i];
                     }
-                    System.IO.File.WriteAllText(System.IO.Path.Combine(pathprefix, "trace.txt"), string.Join(",", cldata));
+                    Task.Run(()=>System.IO.File.WriteAllText(System.IO.Path.Combine(pathprefix, "trace.txt"), string.Join(",", cldata), System.Text.Encoding.ASCII));
 
                     atomCounts.Add(new AtomFreqCount() { F = v, Count = sum });
                     Clients.All.getCameraAtoms(atomCounts);
 
                 }
-                System.IO.File.WriteAllText(System.IO.Path.Combine("data", path, "atomnumbersvsfreq.txt"), JsonConvert.SerializeObject(atomCounts));
+                Task.Run(()=>System.IO.File.WriteAllText(System.IO.Path.Combine("data", path, "atomnumbersvsfreq.txt"), string.Join(Environment.NewLine,atomCounts.Select(x=>$"{x.F},{x.Count}"))));
 
             }, ct);
         }

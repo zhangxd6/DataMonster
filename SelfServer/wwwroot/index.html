@@ -55,6 +55,12 @@
                         DelayLC100
                     </a>
                 </li>
+
+                <li role="presentation">
+                    <a href="#motor" aria-controls="interactive" role="tab" data-toggle="tab">
+                        Motor
+                    </a>
+                </li>
             </ul>
 
             <div class="tab-content">
@@ -205,15 +211,15 @@
                     <div>
                         <form class="form-inline">
                             <div class="form-group">
-                                <label for="initialfreqlc100">initialFreq</label>
+                                <label for="initialfreqlc100">initialFreq(GHz)</label>
                                 <input type="text" class="form-control" id="initialfreqlc100" placeholder="2.00000">
                             </div>
                             <div class="form-group">
-                                <label for="finalfreqlc100">finalFreq</label>
+                                <label for="finalfreqlc100">finalFreq(GHz)</label>
                                 <input type="text" class="form-control" id="finalfreqlc100" placeholder="3.12345">
                             </div>
                             <div class="form-group">
-                                <label for="stepfreqlc100">stepfreq</label>
+                                <label for="stepfreqlc100">stepfreq(GHz)</label>
                                 <input type="text" class="form-control" id="stepfreqlc100" placeholder="0.00100">
                             </div>
                             <div class="form-group">
@@ -240,15 +246,15 @@
                     <div>
                         <form class="form-inline">
                             <div class="form-group">
-                                <label for="initialdelaylc100">initialDelay</label>
+                                <label for="initialdelaylc100">initialDelay(us)</label>
                                 <input type="text" class="form-control" id="initialdelaylc100" placeholder="2.00000">
                             </div>
                             <div class="form-group">
-                                <label for="finaldelaylc100">finalDelay</label>
+                                <label for="finaldelaylc100">finalDelay(us)</label>
                                 <input type="text" class="form-control" id="finaldelaylc100" placeholder="3.12345">
                             </div>
                             <div class="form-group">
-                                <label for="stepdelaylc100">stepdelay</label>
+                                <label for="stepdelaylc100">stepdelay(us)</label>
                                 <input type="text" class="form-control" id="stepdelaylc100" placeholder="0.00100">
                             </div>
                             <div class="form-group">
@@ -266,6 +272,58 @@
                     </div>
                 </div>
 
+
+                <div role="tabpanel" class="tab-pane active fade in" id="motor">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div id="motorchart" class="scope-trace"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label for="initialdelaymotor">initialPosition(0-360)</label>
+                                <input type="text" class="form-control" id="initialdelaymotor" placeholder="0.00000">
+                            </div>
+                            <div class="form-group">
+                                <label for="finaldelaymotor">finalPositiion(0-360)</label>
+                                <input type="text" class="form-control" id="finaldelaymotor" placeholder="3.12345">
+                            </div>
+                            <div class="form-group">
+                                <label for="stepdelaymotor">step</label>
+                                <input type="text" class="form-control" id="stepdelaymotor" placeholder="0.00100">
+                            </div>
+                            <div class="form-group">
+                                <label for="lowerIndexmotor">lowerIndex</label>
+                                <input type="text" class="form-control" id="lowerIndexmotor" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="higherIndexmotor">higherIndex</label>
+                                <input type="text" class="form-control" id="higherIndexmotor" placeholder="2048">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="maxVel">max velocity(degree/s)</label>
+                                <input type="text" class="form-control" id="maxVel" placeholder="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="acceleration">acceleration(degree/s2)</label>
+                                <input type="text" class="form-control" id="acceleration" placeholder="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="motorstep">MotorJogStep(degree)</label>
+                                <input type="text" class="form-control" id="motorstep" placeholder="5">
+                            </div>
+                            <div class="form-group">
+                                <label for="motornubmeroftrace">nubmeroftrace</label>
+                                <input type="text" class="form-control" id="motornubmeroftrace" placeholder="10">
+                            </div>
+                        </form>
+                        <button class="btn btn-default" id="motorstart">Start</button>
+                        <button class="btn btn-default" id="motorend">Stop</button>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
