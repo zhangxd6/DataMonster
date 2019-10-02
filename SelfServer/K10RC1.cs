@@ -29,7 +29,7 @@ namespace SelfServer
 
         public void Init()
         {
-            string serialNo = "55000114";
+            string serialNo = "55114644";
             DeviceManagerCLI.BuildDeviceList();
             List<string> serialNumbers = DeviceManagerCLI.GetDeviceList();
             if (!serialNumbers.Contains(serialNo))

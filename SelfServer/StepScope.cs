@@ -42,7 +42,7 @@ namespace SelfServer
                     //d is SRSDG535 delay
                    // double d = 0;// no delay
                     
-                    for (double d = 0.0; d < 1.0e-5; d = d + 1.0e-6)  // with delay
+                    for (double d = 0.0; d < 1.0e-7; d = d + 1.0e-7)  // with delay
                     {
                         var pathprefix = $"data/{path}/volt_{v}/delay_{d}";
                         System.IO.Directory.CreateDirectory(pathprefix);
@@ -51,7 +51,7 @@ namespace SelfServer
                         {
                             return;
                         }
-                        sRSDG535.SetDelay(2, d);
+                        sRSDG535.SetDelay(3, d);
 
                         var instruction = $":SOUR:VOLT {v}";
                         voltageDevice.Write(instruction);

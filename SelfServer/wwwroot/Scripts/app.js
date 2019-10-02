@@ -9,7 +9,7 @@
     var delayLc100 = $.connection.delayLC100;
 
     var motor = $.connection.motorK10RC1;
-
+    var motorLC100 = $.connection.motorK10RC1LC100;
     $('#microwaveCamerastart').click(function () {
         var init = $('#initialfreq').val();
         var end = $('#finalfreq').val();
@@ -115,6 +115,29 @@
     });
 
     $('#motorend').click(function () {
+        motor.server.stop().done(() => {
+            alert('Camera Stoped ')
+        })
+    });
+
+
+    $('#motorlc100start').click(function () {
+
+        var init = $('#initialdelaymotorlc100').val();
+        var end = $('#finaldelaymotorlc100').val();
+        var step = $('#stepdelaymotorlc100').val();
+        var lowerIndex = $('#lowerIndexmotorlc100').val();
+        var higherIndex = $('#higherIndexmotorlc100').val();
+
+        var maxVel = $('#maxVellc100').val();
+        var acceleration = $('#accelerationlc100').val();
+        var motorstep = $('#motorsteplc100').val();
+        var motornubmeroftrace = $('#motornubmeroftracelc100').val();
+
+        motorLC100.server.start(init, end, step, lowerIndex, higherIndex, maxVel, acceleration, motorstep, motornubmeroftrace);
+    });
+
+    $('#motorlc100end').click(function () {
         motor.server.stop().done(() => {
             alert('Camera Stoped ')
         })
@@ -429,6 +452,37 @@
             }
         });
     }
+
+    motorLC100.client.getMotorLC100Atoms = function (data) {
+        $('#motorchartlc100').highcharts({
+            title: {
+                text: 'Atom Count',
+                x: -20 //center
+            },
+
+            yAxis: {
+                title: {
+                    text: 'Count'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            }
+            ,
+            series: [{
+                name: 'Data',
+                data: data.map(d => [d.S, d.Count])
+            }],
+            plotOptions: {
+                line: {
+                    animation: false
+                }
+            }
+        });
+    }
+
     $.connection.hub.start().done(function () {
         //$shape.draggable({
         //    drag: function () {

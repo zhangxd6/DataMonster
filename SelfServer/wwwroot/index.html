@@ -61,6 +61,12 @@
                         Motor
                     </a>
                 </li>
+
+                <li role="presentation">
+                    <a href="#motorlc100" aria-controls="interactive" role="tab" data-toggle="tab">
+                        MotorLC100
+                    </a>
+                </li>
             </ul>
 
             <div class="tab-content">
@@ -321,6 +327,59 @@
                         </form>
                         <button class="btn btn-default" id="motorstart">Start</button>
                         <button class="btn btn-default" id="motorend">Stop</button>
+
+                    </div>
+                </div>
+
+
+                <div role="tabpanel" class="tab-pane active fade in" id="motorlc100">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div id="motorchartlc100" class="scope-trace"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label for="initialdelaymotorlc100">initialPosition(0-360)</label>
+                                <input type="text" class="form-control" id="initialdelaymotorlc100" placeholder="0.00000">
+                            </div>
+                            <div class="form-group">
+                                <label for="finaldelaymotorlc100">finalPositiion(0-360)</label>
+                                <input type="text" class="form-control" id="finaldelaymotorlc100" placeholder="3.12345">
+                            </div>
+                            <div class="form-group">
+                                <label for="stepdelaymotorlc100">step</label>
+                                <input type="text" class="form-control" id="stepdelaymotorlc100" placeholder="0.00100">
+                            </div>
+                            <div class="form-group">
+                                <label for="lowerIndexmotorlc100">lowerIndex</label>
+                                <input type="text" class="form-control" id="lowerIndexmotorlc100" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="higherIndexmotorlc100">higherIndex</label>
+                                <input type="text" class="form-control" id="higherIndexmotorlc100" placeholder="2048">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="maxVellc100">max velocity(degree/s)</label>
+                                <input type="text" class="form-control" id="maxVellc100" placeholder="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="accelerationlc100">acceleration(degree/s2)</label>
+                                <input type="text" class="form-control" id="accelerationlc100" placeholder="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="motorsteplc100">MotorJogStep(degree)</label>
+                                <input type="text" class="form-control" id="motorsteplc100" placeholder="5">
+                            </div>
+                            <div class="form-group">
+                                <label for="motornubmeroftracelc100">nubmeroftrace</label>
+                                <input type="text" class="form-control" id="motornubmeroftracelc100" placeholder="10">
+                            </div>
+                        </form>
+                        <button class="btn btn-default" id="motorlc100start">Start</button>
+                        <button class="btn btn-default" id="motorlc100end">Stop</button>
 
                     </div>
                 </div>
