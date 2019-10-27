@@ -134,6 +134,7 @@
     <Compile Include="HPMircoWave.cs" />
     <Compile Include="IScopeHub.cs" />
     <Compile Include="K10RC1.cs" />
+    <Compile Include="MicroWaveScope.cs" />
     <Compile Include="MicroWaveCamera.cs" />
     <Compile Include="DelayLC100.cs" />
     <Compile Include="MicroWaveLC100.cs" />

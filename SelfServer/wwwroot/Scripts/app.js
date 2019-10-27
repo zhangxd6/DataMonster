@@ -7,9 +7,21 @@
     var lc100 = $.connection.stepLC100;
     var microwaveLc100 = $.connection.microWaveLC100;
     var delayLc100 = $.connection.delayLC100;
+    var microwavescope = $.connection.microWaveScope;
 
     var motor = $.connection.motorK10RC1;
     var motorLC100 = $.connection.motorK10RC1LC100;
+
+    $('#microwavescopestart').click(function () {
+        var init = $('#microwavescopeinitialfreq').val();
+        var end = $('#microwavescopefinalfreq').val();
+        var step = $('#microwavescopestepfreq').val();
+        var numberCurve = $('#microwavescopenubmeroftrace').val();
+        microwavescope.server.start(init, end, step, numberCurve);
+    });
+    $('#microwavescopeend').click(function () {
+        microwavescope.server.stop();
+    });
     $('#microwaveCamerastart').click(function () {
         var init = $('#initialfreq').val();
         var end = $('#finalfreq').val();
@@ -181,6 +193,36 @@
         arr.push(point.X);
         arr.push(point.Y);
         return arr;
+    }
+
+    microwavescope.client.getAtoms = function (data) {
+        $('#tabpanelmicrowavescopechart').highcharts({
+            title: {
+                text: 'Atom Count',
+                x: -20 //center
+            },
+
+            yAxis: {
+                title: {
+                    text: 'Count'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            }
+            ,
+            series: [{
+                name: 'Data',
+                data: data.map(d => [d.V, d.Count])
+            }],
+            plotOptions: {
+                line: {
+                    animation: false
+                }
+            }
+        });
     }
 
     microcamera.client.getCameraAtoms = function (data) {
